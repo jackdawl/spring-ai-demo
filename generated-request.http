@@ -1,0 +1,9 @@
+
+###
+GET http://localhost:8080/ollama/chat?input=介绍下自己
+
+###
+GET  http://localhost:8081/bailian/chat?input=介绍下自己和使用的大模型
+
+###
+GET  http://localhost:8082/siliconflow/chat?input=介绍下自己和使用的大模型

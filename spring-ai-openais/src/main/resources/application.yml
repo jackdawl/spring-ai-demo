@@ -1,0 +1,19 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: spring-ai-openais
+  ai:
+    openai:
+      api-key: ${AI_SILICONFLOW_API_KEY}
+      base-url: https://api.siliconflow.cn
+      chat:
+        options:
+#          model: deepseek-ai/DeepSeek-R1
+          model: Qwen/Qwen3-8B
+
+
+
+
+
