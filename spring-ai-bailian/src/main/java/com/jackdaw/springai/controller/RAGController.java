@@ -3,6 +3,7 @@ package com.jackdaw.springai.controller;
 import com.alibaba.cloud.ai.dashscope.agent.DashScopeAgent;
 import com.alibaba.cloud.ai.dashscope.agent.DashScopeAgentOptions;
 import com.alibaba.cloud.ai.dashscope.api.DashScopeAgentApi;
+import com.jackdaw.springai.service.CloudRagService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 
 @RestController
 @RequestMapping("/rag")
@@ -27,13 +29,17 @@ public class RAGController {
 
     private final DashScopeAgent agent;
 
+    private final CloudRagService cloudRagService;
+
     public RAGController(ChatClient ragChatClient,
                          VectorStore vectorStore,
-                         DashScopeAgentApi dashscopeAgentApi
+                         DashScopeAgentApi dashscopeAgentApi,
+                         CloudRagService cloudRagService
     ) {
         this.ragChatClient = ragChatClient;
         this.vectorStore = vectorStore;
         this.agent = new DashScopeAgent(dashscopeAgentApi);
+        this.cloudRagService = cloudRagService;
     }
 
 
@@ -57,6 +63,18 @@ public class RAGController {
                 .getOutput()
                 .getText();
 
+    }
+
+   //todo: 由于百炼平台知识库上传文件都显示解析失败，后面在测试
+    @GetMapping("/bailian/importDocuments")
+    public void call() {
+        cloudRagService.importDocuments();
+
+    }
+    @GetMapping("/bailian/retrieval")
+    public Flux<String> generate(@RequestParam(value = "input",
+            defaultValue = "请问你的知识库文档主要是关于什么内容的?") String input) {
+        return cloudRagService.retrieve(input).map(x -> x.getResult().getOutput().getText());
     }
 
 

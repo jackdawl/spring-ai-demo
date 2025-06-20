@@ -1,10 +1,12 @@
 package com.jackdaw.springai.config;
 
+import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,6 +15,8 @@ import java.util.List;
 @Configuration
 public class RagConfig {
 
+    @Value("${spring.ai.dashscope.api-key}")
+    private String apiKey;
 
     @Bean("ragChatClient")
     ChatClient chatClient(ChatClient.Builder builder) {
@@ -36,5 +40,10 @@ public class RagConfig {
 
         simpleVectorStore.add(documents);
         return simpleVectorStore;
+    }
+
+    @Bean
+    DashScopeApi dashScopeApi() {
+        return new DashScopeApi(apiKey);
     }
 }
