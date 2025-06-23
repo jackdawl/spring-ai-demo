@@ -34,6 +34,7 @@
         <module>spring-ai-ollama</module>
         <module>spring-ai-bailian</module>
         <module>spring-ai-openais</module>
+        <module>my-weather-server-stdio</module>
     </modules>
 
 
@@ -57,6 +58,11 @@
                 <groupId>com.alibaba.cloud.ai</groupId>
                 <artifactId>spring-ai-alibaba-starter</artifactId>
                 <version>${spring-ai-alibaba.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.experimental</groupId>
+                <artifactId>spring-ai-mcp</artifactId>
+                <version>0.2.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

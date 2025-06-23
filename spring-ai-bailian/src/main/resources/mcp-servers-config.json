@@ -1,0 +1,16 @@
+{
+    "mcpServers": {
+        "weather": {
+            "command": "java",
+            "args": [
+                "-Dfile.encoding=UTF-8",
+                "-Dspring.ai.mcp.server.stdio=true",
+                "-Dspring.main.web-application-type=none",
+                "-Dlogging.pattern.console=",
+                "-jar",
+                "E:\\study\\ai-demo\\spring-ai-demo\\my-weather-server-stdio\\target\\my-weather-server-stdio-0.0.1.jar"
+            ],
+            "env": {}
+        }
+    }
+}
