@@ -1,4 +1,4 @@
-package com.jackdaw.springai.controller;
+package com.jackdaw.mcp.controller;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.tool.ToolCallbackProvider;
@@ -16,14 +16,14 @@ public class MCPController {
     public MCPController(ChatClient.Builder chatClientBuilder, ToolCallbackProvider tools) {
         this.dashScopeChatClient = chatClientBuilder
 
-                .defaultTools(tools)
+                .defaultToolCallbacks(tools)
                 .build();
     }
 
 
 
     @GetMapping("/weather/stdio")
-    public String noTool(@RequestParam(value = "query", defaultValue = "上海今天的天气") String query) {
+    public String stdio(@RequestParam(value = "query", defaultValue = "上海今天的天气") String query) {
 
         System.out.println("\n>>> QUESTION: " + query);
         String content = dashScopeChatClient.prompt(query).call().content();
@@ -31,7 +31,6 @@ public class MCPController {
         System.out.println("\n>>> ASSISTANT: " + content);
         return content;
     }
-
 
 
 
