@@ -44,6 +44,8 @@ public class RagConfig {
 
     @Bean
     DashScopeApi dashScopeApi() {
-        return new DashScopeApi(apiKey);
+//        return new DashScopeApi(apiKey);
+        //升级1.0后
+        return DashScopeApi.builder().apiKey(apiKey).build();
     }
 }

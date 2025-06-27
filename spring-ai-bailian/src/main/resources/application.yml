@@ -9,22 +9,22 @@ spring:
       api-key: ${AI_DASHSCOPE_API_KEY}
       agent:
         app-id: ${BAILIAN_SCHOOL_APP_ID}
-    mcp:
-      client:
-        stdio:
-#         json 里不加 这个"-Dlogging.pattern.console=",  启动时会一直报fastJson 解析错误，解析json 就是mcp server 的启动日志
-          servers-configuration: classpath:/mcp-servers-config.json
+#    mcp:
+#      client:
+#        stdio:
+##         json 里不加 这个"-Dlogging.pattern.console=",  启动时会一直报fastJson 解析错误，解析json 就是mcp server 的启动日志
+#          servers-configuration: classpath:/mcp-servers-config.json
 #    chat:
 #      options:
 #          model: deepseek-r1
 
 
 # 调试日志
-logging:
-  level:
-    io:
-      modelcontextprotocol:
-        client: DEBUG
-        spec: DEBUG
+#logging:
+#  level:
+#    io:
+#      modelcontextprotocol:
+#        client: DEBUG
+#        spec: DEBUG
 
 

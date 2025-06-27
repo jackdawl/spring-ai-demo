@@ -30,7 +30,8 @@ public class WeatherService {
      */
     public String queryByFunction(String query) {
 
-        return dashScopeChatClient.prompt(query).functions("weatherFunction").call().content();
+//        return dashScopeChatClient.prompt(query).functions("weatherFunction").call().content();
+        return null;
     }
 
 

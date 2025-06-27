@@ -66,7 +66,7 @@ public class RedisChatMemory implements ChatMemory, AutoCloseable {
     }
 
     @Override
-    public List<Message> get(String conversationId, int lastN) {
+    public List<Message> get(String conversationId) {
 
         String key = DEFAULT_KEY_PREFIX + conversationId;
 
@@ -80,13 +80,33 @@ public class RedisChatMemory implements ChatMemory, AutoCloseable {
                     .sorted((e1, e2) ->
                             Long.compare(Long.parseLong(e2.getKey()), Long.parseLong(e1.getKey()))
                     )
-                    .limit(lastN)
                     .map(entry -> new UserMessage(entry.getValue()))
                     .collect(Collectors.toList());
         }
 
 
     }
+//    public List<Message> get(String conversationId, int lastN) {
+//
+//        String key = DEFAULT_KEY_PREFIX + conversationId;
+//
+//        try (Jedis jedis = jedisPool.getResource()) {
+//            Map<String, String> allMessages = jedis.hgetAll(key);
+//            if (allMessages.isEmpty()) {
+//                return List.of();
+//            }
+//
+//            return allMessages.entrySet().stream()
+//                    .sorted((e1, e2) ->
+//                            Long.compare(Long.parseLong(e2.getKey()), Long.parseLong(e1.getKey()))
+//                    )
+//                    .limit(lastN)
+//                    .map(entry -> new UserMessage(entry.getValue()))
+//                    .collect(Collectors.toList());
+//        }
+//
+//
+//    }
 
     @Override
     public void clear(String conversationId) {

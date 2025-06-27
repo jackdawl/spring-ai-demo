@@ -1,7 +1,5 @@
 package com.jackdaw.springai.controller;
 
-import com.alibaba.cloud.ai.prompt.ConfigurablePromptTemplate;
-import com.alibaba.cloud.ai.prompt.ConfigurablePromptTemplateFactory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
@@ -40,16 +38,14 @@ public class PromptTemplateController {
 
     private final ChatClient chatClient;
 
-    private final ConfigurablePromptTemplateFactory configurablePromptTemplateFactory;
+//    private final ConfigurablePromptTemplateFactory configurablePromptTemplateFactory;
 
 
     public PromptTemplateController(
-            ChatClient.Builder builder,
-            ConfigurablePromptTemplateFactory configurablePromptTemplateFactory
+            ChatClient.Builder builder
     ) {
 
         this.chatClient = builder.build();
-        this.configurablePromptTemplateFactory = configurablePromptTemplateFactory;
     }
 
 
@@ -58,12 +54,7 @@ public class PromptTemplateController {
             @RequestParam(value = "actor", defaultValue = "周星驰") String actor
     ) {
 
-        ConfigurablePromptTemplate template = configurablePromptTemplateFactory.getTemplate("test-template");
-
-        if (template == null) {
-            template = configurablePromptTemplateFactory.create("test-template",
-                    "请列出 {actor} 参演的最著名的三部影视作品。");
-        }
+        PromptTemplate template = new PromptTemplate("请列出 {actor} 参演的最著名的三部影视作品。");
 
         Prompt prompt;
         if (StringUtils.hasText(actor)) {

@@ -5,7 +5,6 @@ import com.alibaba.cloud.ai.dashscope.audio.DashScopeAudioTranscriptionOptions;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisModel;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisPrompt;
 import com.alibaba.cloud.ai.dashscope.audio.synthesis.SpeechSynthesisResponse;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.audio.transcription.AudioTranscriptionPrompt;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -51,10 +50,8 @@ public class ChatModelController {
         return response.getResult().getOutput().getText();
     }
 
-    @GetMapping("/streamChat")
-    public Flux<String> streamChat(@RequestParam(value = "input") String input, HttpServletResponse response) throws IOException {
-        response.setContentType("text/event-stream");
-        response.setCharacterEncoding("UTF-8");
+    @GetMapping(value = "/streamChat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> streamChat(@RequestParam(value = "input") String input) {
         return chatModel.stream(input);
     }
 
